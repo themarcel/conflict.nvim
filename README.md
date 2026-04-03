@@ -49,9 +49,7 @@ require("conflict").setup({
 })
 ```
 
-## Usage
-
-### Commands
+## Commands
 
 | Command              | Description                            |
 | :------------------- | :------------------------------------- |
@@ -62,7 +60,7 @@ require("conflict").setup({
 | `:Conflict prev`     | Jump to the previous conflict          |
 | `:Conflict refresh`  | Manually re-parse the buffer           |
 
-### 🖱️ Mouse Support
+## 🖱️ Mouse Support
 
 When `show_actions` is enabled, you can **left-click** the virtual text labels
 directly above a conflict block to resolve it instantly.
