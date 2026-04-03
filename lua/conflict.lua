@@ -12,7 +12,6 @@ local map = vim.keymap.set
 local NAMESPACE = api.nvim_create_namespace("conflict")
 local ACTIONS_NAMESPACE = api.nvim_create_namespace("conflict-actions")
 local AUGROUP = api.nvim_create_augroup("ConflictCommands", { clear = true })
-local PRIORITY = vim.hl.priorities.user
 
 local CONFLICT_START = "^<<<<<<<"
 local CONFLICT_MIDDLE = "^======="
@@ -159,7 +158,12 @@ local function draw_sections(bufnr, positions, lines)
                 hl_group = hl,
                 virt_text = { { text .. string.rep(" ", 200), hl } },
                 virt_text_pos = "overlay",
-                priority = PRIORITY,
+            })
+        end
+
+        if middle_start then
+            api.nvim_buf_set_extmark(bufnr, NAMESPACE, middle_start, 0, {
+                line_hl_group = "NonText",
             })
         end
 
