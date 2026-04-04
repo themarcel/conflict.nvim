@@ -2,9 +2,12 @@
 
 _A simple NeoVim plugin to resolve merge conflicts with ease._
 
-This plugin was inspired by
+Its inline conflict UI is similar to the one found in
+[VS Code](https://code.visualstudio.com/docs/sourcecontrol/merge-conflicts#_editor-conflict-markers).
+The plugin was inspired by
 [git-conflict.nvim](https://github.com/akinsho/git-conflict.nvim). It began as
-a fork but resulted in a complete rewrite focused on a simpler codebase.
+a fork but resulted in a complete rewrite focused on a simpler codebase with the
+latest API.
 
 <div align="center">
   <img src="assets/screenshot.png" width="600" alt="conflict.nvim demo">
@@ -23,19 +26,14 @@ Using [lazy.nvim](https://github.com/folke/lazy.nvim):
 }
 ```
 
-## ⚙️ Configuration
-
-> [!CAUTION]
-> The default mappings start with `c` (e.g., `cc`). This introduces a delay to
-> Neovim's built-in **change** operator. Set these to `false` to disable them
-> or remap them to your preference.
+## Configuration
 
 ```lua
 require("conflict").setup({
     default_mappings = {
-        current = "cc",
-        incoming = "ci",
-        both = "cb",
+        current = "<leader>cc",
+        incoming = "<leader>ci",
+        both = "<leader>cb",
         next = "]x",
         prev = "[x",
     },
@@ -60,7 +58,7 @@ require("conflict").setup({
 | `:Conflict prev`     | Jump to the previous conflict          |
 | `:Conflict refresh`  | Manually re-parse the buffer           |
 
-## 🖱️ Mouse Support
+## Mouse Support
 
 When `show_actions` is enabled, you can **left-click** the virtual text labels
 directly above a conflict block to resolve it instantly.
