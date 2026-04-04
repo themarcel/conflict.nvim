@@ -112,7 +112,7 @@ local function handle_click()
         if anchor.row > 0 and mouse.screenrow == anchor.row - 1 then
             local side = get_action_at_col(mouse.screencol - anchor.col + 1)
             if side then
-                api.nvim_win_set_cursor(mouse.winid, { m_line, 0 })
+                api.nvim_win_set_cursor(mouse.winid, { m_line + 1, 0 })
                 M.choose(side)
                 return
             end
