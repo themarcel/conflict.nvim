@@ -475,6 +475,30 @@ function M.list()
     end)
 end
 
+---Populates the quickfix list with all conflict markers from conflicted files.
+function M.qflist()
+    local files = M.get_conflicted_files()
+    if #files == 0 then
+        vim.notify("No conflicted files found", vim.log.levels.INFO)
+        return
+    end
+
+    local items = {}
+    for _, file in ipairs(files) do
+        local ok, lines = pcall(vim.fn.readfile, file)
+        if ok then
+            for i, line in ipairs(lines) do
+                if line:match(CONFLICT_START) then
+                    table.insert(items, { filename = file, lnum = i, text = line })
+                end
+            end
+        end
+    end
+
+    vim.fn.setqflist({}, " ", { title = "Git Conflicts", items = items })
+    vim.cmd.copen()
+end
+
 ---@param bufnr? integer @Buffer handle, 0 or nil for current.
 function M.clear(bufnr)
     local b = (bufnr and bufnr ~= 0) and bufnr or vim.api.nvim_get_current_buf()
@@ -500,6 +524,7 @@ function M.setup(opts)
         base = M.choose,
         none = M.choose,
         list = M.list,
+        qflist = M.qflist,
     }
 
     vim.api.nvim_create_user_command("Conflict", function(args)
